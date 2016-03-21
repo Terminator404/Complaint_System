@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>医院举报投诉中心</title>
+    <link rel="stylesheet" href="js/layer/need/layer.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+
+    <script src="js/jquery.1.7.2.min.js"></script>
+    <script src="js/avalon.js"></script>
+    <script src="js/layer/layer.js"></script>
+
+
+</head>
+<body>
+
+
+<div class="banner"><img src="img/banner.jpg" style="width: 1349px;height: 210px"/></div>
+<div class="nav">
+    <a href="home.html">首页</a> |
+    <a href="guide.html">投诉指南</a> |
+    <a href="law.html">法律法规</a> |
+    <a href="work.html">工作动态</a> |
+    <a href="introduction.html">机构简介</a> |
+</div>
+
+<div class="cyj-container">
+    <div ms-controller="query">
+
+        <p><input class="cyj-txtBox" type="text" placeholder="请输入查询码" ms-duplex="searchValue"></p>
+
+        <p>
+            <button type="submit" class="cyj-btn" ms-click="search">提交</button>
+        </p>
+
+        <div id="res"
+             style="font-family:微软雅黑 ;margin: 10px auto 10px auto;font-size: 16px;background-color: #36F1CD;width: 100px;"></div>
+
+        <table id="complaint_list">
+            <tr>
+                <th>投诉日期</th>
+                <th>投诉对象</th>
+                <th>投诉主题</th>
+                <th>投诉内容</th>
+                <th>投诉人</th>
+                <th>联系电话</th>
+                <th>邮箱</th>
+            </tr>
+
+            <tr ms-controller="query" ms-repeat="list">
+                <td>{{el.updatedAt|date("yyyy年MM月dd日 HH:mm:ss")}}</td>
+                <td>{{el.de_id}}{{el.d_id}}</td>
+                <td>{{el.c_title}}</td>
+                <td>{{el.c_content}}</td>
+                <td>{{el.c_name}}</td>
+                <td>{{el.c_phone}}</td>
+                <td>{{el.c_mail}}</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+<div id="footer">
+
+    　　<h6>©<a href="http://www.fimmu.com"> 南方医科大学</a>
+    <a href="http://git.oschina.net/terminator404">12计算机 陈勇杰</a> 版权所有
+</h6>
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+    var vm2 = avalon.define({
+        $id: 'query',
+        list: [],
+        searchKey: 'c_query',
+        searchValue: '',
+        search: function () {
+            $.getJSON('complain/complain/search', {
+                searchKey: vm2.searchKey,
+                searchValue: vm2.searchValue
+            }, function (data2) {
+                if (data2.error) {
+                    console.log(data2.error);
+                } else {
+                    vm2.list = data2.data.rows;
+                    console.log(data2.data);
+
+                    layer.open({
+                        content: "查询中...",
+                        time: 1
+                    });
+
+                    if (vm2.list[0].c_condition == "1") {
+                        $('#res').html('<td>投诉待审核</td>');
+                    } else if (vm2.list[0].c_condition == "2") {
+                        $('#res').html('<td>投诉待通过</td>');
+                    } else if (vm2.list[0].c_condition == "3") {
+                        $('#res').html('<td>投诉待解决</td>');
+                    } else {
+                        $('#res').html('<td>投诉已完成</td>');
+                    }
+                }
+            });
+        }
+    });
+
+    avalon.scan();
+
+</script>
+
+
+</html>

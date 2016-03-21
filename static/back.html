@@ -1,0 +1,516 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>后台管理页面</title>
+    <link rel="stylesheet" href="css/back_style.css">
+    <link rel="stylesheet" href="js/kindeditor-4.1.10/themes/default/default.css"/>
+    <script src="js/avalon.js"></script>
+    <script type="text/javascript" src="js/jquery.1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/date.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script>
+    <link rel="stylesheet" href="js/layer/need/layer.css"/>
+    <script src="js/kindeditor-4.1.10/kindeditor.js"></script>
+    <script src="js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+
+
+    <script type="text/javascript" charset="utf-8">
+        //        var editor;
+        //        KindEditor.ready(function(K) {
+        //            editor = K.create('.editor_id');
+        //        });
+        KindEditor.ready(function (K) {
+            K.create('textarea[name="content"]',
+                    {
+                        resizeType: 1,
+                        afterBlur: function () {
+                            this.sync();
+                        }
+                    });
+        });
+
+
+    </script>
+
+</head>
+
+<body>
+<div class="top">
+    <span id="cyj-title">后台管理系统</span>
+
+    <div class="tab1" id="tab1">
+        <div class="menu">
+            <ul class="nav">
+                <li id="one1" onclick="setTab('one',1)"><a href="#"><img src="img/1430958346122214_06.png">
+
+                    <p>首页发布</p>
+                </a></li>
+                <li id="one2" onclick="setTab('one',2)"><a href="#"><img src="img/14309583461214_06.png">
+
+                    <p>投诉受理</p>
+                </a></li>
+                <li id="one3" onclick="setTab('one',3)"><a href="#"><img src="img/14309583461214_08.png">
+
+                    <p>数据统计</p>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="content" id="con_one_1" style="display:block;">
+    <div class="left-column">
+        <div class="service">
+            <h5>首页发布</h5>
+        </div>
+        <div class="tab2" id="tab2">
+            <dl class="call">
+                <div class="medo">
+                    <dd id="column1" onclick="setTab('column',1)"><a href="#">头条新闻发布</a></dd>
+                    <dd id="column2" onclick="setTab('column',2)"><a href="#">静态新闻发布</a></dd>
+                    <dd id="column3" onclick="setTab('column',3)"><a href="#">滚图新闻发布</a></dd>
+                    <dd id="column4" onclick="setTab('column',4)"><a href="#">政策法规发布</a></dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+
+    <div class="meduo" ms-controller="cyj_first">
+        <div class="right-content" id="con_column_1">
+            <div class="ck">
+                <p><span>头条新闻发布</span></p>
+            </div>
+            <div class="srxz">
+                <p><span>标题：</span><input placeholder="标题" type="text" ms-duplex="form.f_title"></p>
+
+                <p><span>来源：</span><input placeholder="来源" type="text" ms-duplex="form.f_source"></p>
+
+                <p class="message">
+
+                <p><span>正文：</span></p>
+                <textarea ms-duplex="form.f_content" name="content"
+                          style="margin-left:55px;height:100px; width:500px; border:1px solid #c1c1c1; border-radius:5px; background-color:#f1f1f1;"></textarea>
+            </div>
+            <p class="release"><a ms-click="ok1" href="#">发布</a></p>
+        </div>
+    </div>
+
+    <div ms-controller="cyj_second">
+        <div class="right-content" id="con_column_2" style="display:none">
+            <div class="ck">
+                <p><span>静态新闻发布</span></p>
+            </div>
+            <div class="srxz">
+                <p><span>标题：</span><input name="标题" type="text" ms-duplex="form.s_title"></p>
+
+                <p><span>来源：</span><input name="来源" type="text" ms-duplex="form.s_source"></p>
+
+                <p class="message">
+
+                <p><span>正文：</span></p>
+                <textarea name="content" ms-duplex="form.s_content"
+                          style="margin-left:55px;height:100px; width:500px; border:1px solid #c1c1c1; border-radius:5px; background-color:#f1f1f1;"></textarea>
+
+            </div>
+            <p class="release"><a ms-click="ok2" href="#">发布</a></p>
+        </div>
+    </div>
+
+
+    <div ms-controller="cyj-third">
+        <div class="right-content" id="con_column_3" style="display:none">
+            <div class="ck">
+                <p><span>滚图新闻发布</span></p>
+            </div>
+            <div class="srxz">
+                <p><span>标题：</span><input name="标题" type="text" ms-duplex="form.r_title"></p>
+
+                <p><span>来源：</span><input name="来源" type="text" ms-duplex="form.r_source"></p>
+
+                <p class="message">
+
+                <p><span>正文：</span></p>
+                <textarea name="content"
+                          style="margin-left:55px;height:100px; width:500px; border:1px solid #c1c1c1; border-radius:5px; background-color:#f1f1f1;"></textarea>
+
+            </div>
+            <p class="release"><a href="#">发布</a></p>
+        </div>
+    </div>
+
+
+    <div ms-controller="cyj-forth">
+        <div class="right-content" id="con_column_4" style="display:none">
+            <div class="ck">
+                <p><span>政策法规发布</span></p>
+            </div>
+            <div class="srxz">
+                <p><span>标题：</span><input name="标题" type="text" ms-duplex="form.l_title"></p>
+
+                <p><span>来源：</span><input name="来源" type="text" ms-duplex="form.l_source"></p>
+
+                <p class="message">
+
+                <p><span>正文：</span></p>
+                <textarea name="content"
+                          style="margin-left:55px;height:100px; width:500px; border:1px solid #c1c1c1; border-radius:5px; background-color:#f1f1f1;"></textarea>
+            </div>
+            <p class="release"><a href="#">发布</a></p>
+        </div>
+    </div>
+</div>
+
+
+<div class="content" id="con_one_2" style="display:none;">
+    <div class="left-column">
+        <div class="service">
+            <h5>投诉受理</h5>
+        </div>
+        <div class="tab3" id="tab3">
+            <dl class="call">
+                <div class="medo medo1">
+                    <dd id="colum1" onclick="setTab('colum',1)"><a href="#">新收到</a></dd>
+                    <dd id="colum2" onclick="setTab('colum',2)"><a href="#">审核中</a></dd>
+                    <dd id="colum3" onclick="setTab('colum',3)"><a href="#">已答复</a></dd>
+                    <dd id="colum4" onclick="setTab('colum',4)"><a href="#">已完成</a></dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+
+
+        <div class="meduo meduo1">
+            <div class="right-content" id="con_colum_1">
+                <div ms-controller="new_ts" >
+                <table class="complaint_list">
+                    <tr>
+                        <th>投诉日期</th>
+                        <th>投诉对象</th>
+                        <th>投诉主题</th>
+                        <th>投诉人</th>
+                        <th>性别</th>
+                        <th>联系电话</th>
+                        <th>邮箱</th>
+                        <th>查询码</th>
+                        <th width="100">操作</th>
+                    </tr>
+                    <tr ms-repeat="complain_list">
+                        <td>{{el.updatedAt|date("yyyy年MM月dd日 HH:mm:ss")}}</td>
+                        <td>{{el.de_id}}{{el.d_id}}</td>
+                        <td>{{el.c_title}}</td>
+                        <td>{{el.c_name}}</td>
+                        <td>{{el.c_sexual}}</td>
+                        <td>{{el.c_phone}}</td>
+                        <td>{{el.c_mail}}</td>
+                        <td>{{el.c_query}}</td>
+                        <td>
+                            <button ms-click="$remove">删除</button>
+                            <button ms-click="confirm(el.id)">确认</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+            <div class="right-content" id="con_colum_2" style="display:none">
+                <div ms-controller="check_ts" >
+                    <table class="complaint_list">
+                        <tr>
+                            <th>投诉日期</th>
+                            <th>投诉对象</th>
+                            <th>投诉主题</th>
+                            <th>投诉人</th>
+                            <th>性别</th>
+                            <th>联系电话</th>
+                            <th>邮箱</th>
+                            <th>查询码</th>
+                            <th width="100">操作</th>
+                        </tr>
+                        <tr ms-repeat="complain_list">
+                            <td>{{el.updatedAt|date("yyyy年MM月dd日 HH:mm:ss")}}</td>
+                            <td>{{el.de_id}}{{el.d_id}}</td>
+                            <td>{{el.c_title}}</td>
+                            <td>{{el.c_name}}</td>
+                            <td>{{el.c_sexual}}</td>
+                            <td>{{el.c_phone}}</td>
+                            <td>{{el.c_mail}}</td>
+                            <td>{{el.c_query}}</td>
+                            <td>
+                                <button ms-click="$remove">删除</button>
+                                <button ms-click="confirm(el.id)">确认</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="right-content" id="con_colum_3" style="display:none">
+                <div ms-controller="answer_ts" >
+                    <table class="complaint_list">
+                        <tr>
+                            <th>投诉日期</th>
+                            <th>投诉对象</th>
+                            <th>投诉主题</th>
+                            <th>投诉人</th>
+                            <th>性别</th>
+                            <th>联系电话</th>
+                            <th>邮箱</th>
+                            <th>查询码</th>
+                            <th width="100">操作</th>
+                        </tr>
+                        <tr ms-repeat="complain_list">
+                            <td>{{el.updatedAt|date("yyyy年MM月dd日 HH:mm:ss")}}</td>
+                            <td>{{el.de_id}}{{el.d_id}}</td>
+                            <td>{{el.c_title}}</td>
+                            <td>{{el.c_name}}</td>
+                            <td>{{el.c_sexual}}</td>
+                            <td>{{el.c_phone}}</td>
+                            <td>{{el.c_mail}}</td>
+                            <td>{{el.c_query}}</td>
+                            <td>
+                                <button ms-click="$remove">删除</button>
+                                <button ms-click="confirm(el.id)">确认</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="right-content" id="con_colum_4" style="display:none">
+                <div ms-controller="finish_ts" >
+                    <table class="complaint_list">
+                        <tr>
+                            <th>投诉日期</th>
+                            <th>投诉对象</th>
+                            <th>投诉主题</th>
+                            <th>投诉人</th>
+                            <th>性别</th>
+                            <th>联系电话</th>
+                            <th>邮箱</th>
+                            <th>查询码</th>
+                            <th width="100">操作</th>
+                        </tr>
+                        <tr ms-repeat="complain_list">
+                            <td>{{el.updatedAt|date("yyyy年MM月dd日 HH:mm:ss")}}</td>
+                            <td>{{el.de_id}}{{el.d_id}}</td>
+                            <td>{{el.c_title}}</td>
+                            <td>{{el.c_name}}</td>
+                            <td>{{el.c_sexual}}</td>
+                            <td>{{el.c_phone}}</td>
+                            <td>{{el.c_mail}}</td>
+                            <td>{{el.c_query}}</td>
+                            <td>
+                                <button ms-click="$remove">删除</button>
+                                <button ms-click="confirm(el.id)">确认</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+</div>
+
+<div class="content" id="con_one_3" style="display:none;">
+    <div class="left-column">
+        <div class="service">
+            <h5>数据统计</h5>
+        </div>
+        <div class="tab4" id="tab4">
+            <dl class="call">
+                <div class="medo medo2">
+                    <dd id="colun1" onclick="setTab('colun',1)"><a href="#">条形图</a></dd>
+                    <dd id="colun2" onclick="setTab('colun',2)"><a href="#">折线图</a></dd>
+                    <dd id="colun3" onclick="setTab('colun',3)"><a href="#">饼状图</a></dd>
+                    <dd id="colun4" onclick="setTab('colun',4)"><a href="#">纠纷服务</a></dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+
+
+    <div class="meduo meduo2">
+        <div class="right-content" id="con_colun_1">
+            <center>
+                <span style="font-size:100px;"> 1</span>
+            </center>        </div>
+        <div class="right-content" id="con_colun_2" style="display:none">
+            <center>
+                <span style="font-size:100px;"> 2</span>
+            </center>
+        </div>
+        <div class="right-content" id="con_colun_3" style="display:none">
+            <center>
+                <span style="font-size:100px;">3</span>
+            </center>
+        </div>
+        <div class="right-content" id="con_colun_4" style="display:none">
+            <center>
+                <span style="font-size:100px;">4</span>
+            </center>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+<script type="text/javascript">
+
+    /* 新闻发布页面*/
+    var vm = avalon.define({
+        $id: "cyj_first",
+        form: {
+            f_title: '',
+            f_source: '',
+            f_content: ''
+        },
+        ok1: function () {
+            $.post('article/article/update', vm.form, function (data) {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    layer.open({
+                        content: '发布成功!!',
+                        time: 1
+                    });
+                }
+            });
+        }
+    });
+    avalon.scan();
+
+
+    var vm2 = avalon.define({
+        $id: "cyj_second",
+        form: {
+            s_title: '',
+            s_source: '',
+            s_content: ''
+        },
+        ok2: function () {
+            $.post('article/article/add2', vm2.form, function (data) {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    layer.open({
+                        content: '发布成功!!',
+                        time: 1
+                    });
+                }
+            });
+        }
+    });
+    avalon.scan();
+
+    var vm3 = avalon.define({
+        $id: "cyj_third",
+        form: {
+            l_title: '',
+            l_source: ''
+        },
+        ok3: function () {
+            $.post('article/article/add3', vm3.form, function (data) {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    layer.open({
+                        content: '发布成功!!',
+                        time: 1
+                    });
+                }
+            });
+        }
+    });
+    avalon.scan();
+
+    var vm4 = avalon.define({
+        $id: "cyj_forth",
+        form: {
+            w_name: '',
+            w_phone: ''
+        },
+        ok4: function () {
+            $.post('article/article/add4', vm4.form, function (data) {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    layer.open({
+                        content: '发布成功!!',
+                        time: 1
+                    });
+                }
+            });
+        }
+    });
+    avalon.scan();
+
+    /* 投诉受理页面*/
+
+
+    function loadingPage(callback) {
+        return {
+            getPage: function (val) {
+                callback();
+            }
+        }
+    }
+    var pager = loadingPage(function () {
+        $.getJSON('complain/complain/search',{searchKey:'c_condition',searchValue:'1'}, function (data) {
+            var   vm = avalon.define({
+                $id: 'new_ts',
+                complain_list: []
+            });
+            avalon.scan();
+            vm.complain_list = data.data.rows.reverse();
+            console.log(data.data);
+        });
+
+        $.getJSON('complain/complain/search',{searchKey:'c_condition',searchValue:'2'}, function (data) {
+            var   vm = avalon.define({
+                $id: 'check_ts',
+                complain_list: []
+            });
+            avalon.scan();
+            vm.complain_list = data.data.rows.reverse();
+            console.log(data.data);
+        });
+
+        $.getJSON('complain/complain/search',{searchKey:'c_condition',searchValue:'3'}, function (data) {
+            var   vm = avalon.define({
+                $id: 'answer_ts',
+                complain_list: []
+            });
+            avalon.scan();
+            vm.complain_list = data.data.rows.reverse();
+            console.log(data.data);
+        });
+
+        $.getJSON('complain/complain/search',{searchKey:'c_condition',searchValue:'4'}, function (data) {
+            var   vm = avalon.define({
+                $id: 'finish_ts',
+                complain_list: []
+            });
+            avalon.scan();
+            vm.complain_list = data.data.rows.reverse();
+            console.log(data.data);
+        });
+    });
+    pager.getPage();
+
+
+//    var vm5=avalon.define({
+//            $id: 'complain_list',
+//            remove: function ($remove,id) {
+//                $.getJSON('complain/complain/delete', {id: id}, function (data7) {//删除数据
+//                    if (!data7.error) {
+//                        $remove();
+//                    }
+//                });
+//            }
+//        });
+//    avalon.scan();
+
+
+</script>
+
+
+</html>

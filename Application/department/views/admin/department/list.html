@@ -1,0 +1,39 @@
+<div class="f-cb f-mb10"><h3 class="list-title">department数据</h3> <span class="f-fr"><a href="#!/?department/admin/department/addItem" class="f-btn f-btn-success">增加数据</a></span></div>
+<div class="mkoa-box f-p10"  ms-controller="department-list">
+    <mkoa:pager  url="department/admin/department/findAll" searchurl="department/admin/department/search" >
+        <div slot="$top" id="search">
+            <select ms-duplex="searchKey" class="f-fl" >
+                <option value="id">ID</option>
+                <option value="de_id">科室id</option><option value="de_name">科室名</option>
+            </select>
+            <input type="text" ms-duplex="searchValue" class="f-fl f-ml5"/>
+            <button ms-click="search" class="f-btn f-btn-success f-ml10" >搜索</button>
+            <button ms-if="searchOpen" ms-click="closeSearch" class="f-btn">清空搜索</button>
+        </div>
+        <table slot="$list" class="mkoa-table">
+            <thead>
+            <tr><th width="30">ID</th><th>科室id</th><th>科室名</th><th width="155">创建时间</th><th width="100">操作</th></tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="listData"><td>{{el.id}}</td><td>{{el.de_id}}</td><td>{{el.de_name}}</td><td>{{el.createdAt|date("yyyy-MM-dd HH:mm:ss")}}</td>
+           <td><a ms-attr-href="'#!/?department/admin/department/addItem?id='+el.id"  class="f-btn f-btn-sm">编辑</a> <button  ms-click="remove($remove,el.id)" class="f-btn f-btn-sm">删除</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </mkoa:pager>
+</div>
+<script>
+    require(["mkoaAjax/mkoaAjax","mkoaPagerFull/mkoaPagerFull"], function ($a){
+       avalon.define({
+            $id:'department-list',
+            remove:function($remove,id){
+                $a.getJSON(app.$host +'department/admin/department/delete',{id:id},function(data){//删除数据
+                    if(!data.error){
+                        $remove();
+                    }
+                });
+            }
+        });
+        avalon.scan();
+    });
+</script>

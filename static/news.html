@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>医院举报投诉中心</title>
+    <link rel="stylesheet" href="css/common.css"/>
+    <script src="js/jquery.1.7.2.min.js"></script>
+    <script src="js/avalon.js"></script>
+
+</head>
+<body >
+
+<div class="banner"><img src="img/banner.jpg" style="width: 1349px;height: 210px"/></div>
+<div class="nav">
+    <a href="home.html">首页</a>  |
+    <a href="guide.html">投诉指南</a>  |
+    <a href="law.html">法律法规</a>  |
+    <a href="work.html">工作动态</a>  |
+    <a href="introduction.html">机构简介</a>  |
+</div>
+
+<div class="cyj-container" ms-controller="app">
+    <div class="contenter cva" style="padding-top: 1px">
+        <h2 id="title"></h2>
+        <strong> 时间：</strong>   <span id="time"></span> <strong>来源：</strong><span id="source"> </span>
+        <hr><br/>
+        <div id="content"></div>
+    </div>
+
+</div>
+
+
+<div ></div>
+
+
+<div id="footer">
+
+    　　<h6>©<a href="http://www.fimmu.com"> 南方医科大学</a>
+    <a href="http://git.oschina.net/terminator404">12计算机 陈勇杰</a>  版权所有
+</h6>
+</div>
+
+</body>
+
+<script type="text/javascript">
+    //获取GET参数
+
+    function getArgs(){
+        var args = {};
+        var match = null;
+        var search = decodeURIComponent(location.search.substring(1));
+        var reg = /(?:([^&]+)=([^&]+))/g;
+        while((match = reg.exec(search))!==null){
+            args[match[1]] = match[2];
+        }
+        return args;
+    }
+    var get=getArgs();
+    var id=get.id;
+    var User,vm;
+
+    $.getJSON('article/article/findOne?id=' + id, function (data2) {
+        vm = avalon.define({
+            $id: 'app',
+            articleData: data2.data
+        });
+        avalon.scan();
+        $("#time").html(vm.articleData.createdAt);
+        $("#source").html(vm.articleData.s_source);
+        $("#title").html(vm.articleData.s_title);
+        $("#content").html(vm.articleData.s_content);
+    });
+
+</script>
+</html>

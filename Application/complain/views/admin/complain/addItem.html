@@ -1,0 +1,92 @@
+<div ms-controller="complain-addItem">
+<div class="f-cb f-mb10"><h3 class="list-title">编辑数据</h3>
+    <span class="f-fr"><a href="javascript:history.go(-1);" class="f-btn">返回</a></span></div>
+<div class="mkoa-box">
+    <div class="f-p10">
+    <form>
+        <table class="mkoa-form">
+            <tr ms-if="form.id">
+                <td width="120"><span class="mkoa-form-title">ID</span></td><td>{{form.id}}</td>
+            </tr>
+            <tr><td class="mkoa-form-title"><span>投诉人id</span></td>
+                <td><input type="text" ms-duplex="form.c_name"/></td></tr><tr><td class="mkoa-form-title"><span>投诉人性别</span></td>
+                <td><input type="text" ms-duplex="form.c_sexual"/></td></tr><tr><td class="mkoa-form-title"><span>投诉人电话</span></td>
+                <td><input type="text" ms-duplex="form.c_phone"/></td></tr><tr><td class="mkoa-form-title"><span>投诉人邮箱</span></td>
+                <td><input type="text" ms-duplex="form.c_mail"/></td></tr><tr><td class="mkoa-form-title"><span>投诉主题</span></td>
+                <td><input type="text" ms-duplex="form.c_title"/></td></tr><tr><td class="mkoa-form-title"><span>投诉内容</span></td>
+                <td><input type="text" ms-duplex="form.c_content"/></td></tr><tr><td class="mkoa-form-title"><span>投诉科室id</span></td>
+                <td><input type="text" ms-duplex="form.de_id"/></td></tr><tr><td class="mkoa-form-title"><span>投诉医生id</span></td>
+                <td><input type="text" ms-duplex="form.d_id"/></td></tr><tr><td class="mkoa-form-title"><span>投诉状态</span></td>
+                <td><input type="text" ms-duplex="form.c_condition"/></td></tr><tr><td class="mkoa-form-title"><span>投诉查询码</span></td>
+                <td><input type="text" ms-duplex="form.c_query"/></td></tr>
+            <tr ms-if="form.createdAt">
+                <td width="120"><span class="mkoa-form-title">创建时间</span></td><td>{{form.createdAt|date("yyyy-MM-dd HH:mm:ss")}}</td>
+            </tr>
+            <tr ms-if="form.updatedAt">
+                <td width="120"><span class="mkoa-form-title">更新时间</span></td><td>{{form.updatedAt|date("yyyy-MM-dd HH:mm:ss")}}</td>
+            </tr>
+        </table>
+        <div class="f-mt10 f-tac">
+            <button type="button" class="f-btn f-btn-success" ms-class="f-btn-disabled:isLock" ms-click="save">{{isLock?'稍等...':'保存';}}</button>
+        </div>
+    </form>
+    </div>
+</div>
+</div>
+<script>
+    (function(){
+        //验证规则
+        var rules =  {
+                c_name: {rule:'required',error:'验证失败!'},
+                c_sexual: {rule:'required',error:'验证失败!'},
+                c_phone: {rule:'required',error:'验证失败!'},
+                c_mail: {rule:'required',error:'验证失败!'},
+                c_title: {rule:'required',error:'验证失败!'},
+                c_content: {rule:'required',error:'验证失败!'},
+                de_id: {rule:'required',error:'验证失败!'},
+                d_id: {rule:'required',error:'验证失败!'},
+                c_condition: {rule:'required',error:'验证失败!'},
+                c_query: {rule:'required',error:'验证失败!'}};
+
+        var id=avalon.vmodels['router'].GET['id'];//是否存在id
+        var form={"c_name":"","c_sexual":"","c_phone":"","c_mail":"","c_title":"","c_content":"","de_id":"","d_id":"","c_condition":"","c_query":""};//数据对象
+        require(["mkoaAjax/mkoaAjax","KoaValidator"],function($a,$v){
+        if(id){//更新数据
+            $a.getJSON(app.$host +'complain/admin/complain/findOne',{id:id,t:new Date().getTime()},function(data){//获取列表数据
+                if(!data.error){
+                    pageLoad(data.data);
+                }
+            });
+        }else{//新增数据
+            pageLoad(form);
+        }
+        function pageLoad(form){
+            var vm=avalon.define({
+                $id:'complain-addItem',
+                form:form,
+                isLock:0,
+                save:function(){
+                    var check = $v.validate(vm.form.$model, rules);//验证数据
+                    if (check.status) {/*通过验证*/
+                    vm.isLock=1;
+                    $a.post(app.$host +'complain/admin/complain/add?'+new Date().getTime(),vm.form.$model,function(data){//获取列表数据
+                        if(!data.error){
+                            alert('提交成功!');
+                        }else{
+                            alert('写入数据不正确!');
+                        }
+                        vm.isLock=0;
+                    });
+                    }else{
+                        alert(rules[check.rejects[0].field].error);//验证错误
+                    }
+                }
+            });
+            avalon.scan();
+        }
+
+    });
+
+    })();
+
+</script>

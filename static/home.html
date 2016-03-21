@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>医院举报投诉中心</title>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="js/layer/need/layer.css"/>
+    <script src="js/jquery.1.7.2.min.js"></script>
+    <script src="js/avalon.js"></script>
+    <script src="js/layer/layer.js"></script>
+
+</head>
+<body >
+
+<!--头部-->
+    <div class="banner"><img src="img/banner.jpg" style="width: 1349px;height: 210px"/></div>
+    <div class="nav">
+        <a href="home.html">首页</a>  |
+        <a href="guide.html">投诉指南</a>  |
+        <a href="law.html">法律法规</a>  |
+        <a href="work.html">工作动态</a>  |
+        <a href="introduction.html">机构简介</a>  |
+    </div>
+<!--主体内容-->
+<!--相关投诉入口-->
+<!--<div style="width: 980px;margin: auto;padding: 20px 0;"></div>-->
+
+<!-- 图片展示、重要新闻展示-->
+<div style="padding-top: 40px; width: 980px;margin: auto;height: 1%;overflow: hidden;">
+      <!--图片展示-->
+        <div style="width:300px;float:left; padding-top:10px;">
+            <div id="photo_content">
+                <div id="focus_photo">
+                    <div style="width:300px; height:200px; float:left; overflow:hidden;"><a id="focus_photo_url" target="_blank"><img id="focus_photo_pic" width="300" height="200" style="border:0px;FILTER: progid:DXImageTransform.Microsoft.RevealTrans (duration=2,transition=23);"/></a></div>
+                    <div style="width:300px; height:20px; float:left; background-color:#000000; position:relative;">
+                        <div id="focus_photo_title"><a id="focus_title_url" target="_blank"></a></div>
+                        <div id="focus_photo_nav"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="photo_lists">
+                <p><a href="#">内蒙患者向“两会”投诉:她被北京胸科医院强制消费4万余元</a><img src="img/r1.jpg " border="0" width="1" height="1" alt=""/></p>
+                <p><a href="#">手术中被加价患者删除举报贴 执法部门又陷执法窘境</a><img src="img/r2.jpg " border="0" width="1" height="1" alt=""/></p>
+                <p><a href="#">究竟是不是牙病？ 杭州口腔医院遭患者投诉</a><img src=" img/r3.jpg" border="0" width="1" height="1" alt=""/></p>
+                <p><a href="#">外地患者举报执法人员取缔无证诊所</a><img src="img/r4.JPEG " border="0" width="1" height="1" alt=""/></p>
+                <p><a href="#">患者质疑南京天伦医院过度治疗高额收费</a><img src="img/r5.jpg " border="0" width="1" height="1" alt=""/></p>
+               </div>
+            <script src="js/tb.js"></script>
+
+        </div>
+<!--中间-->
+        <div  class="box2" >
+            <h1 ms-controller="app1" ms-repeat="first"><a ms-attr-href="'news.html?id='+el.id"><font color="red">{{el.f_title}}</font></a></h1>
+            <ul ms-controller="app2" ms-repeat="news_lists">
+                <li><a  ms-attr-href="'news.html?id='+el.id">·{{el.s_title}}</a></li>
+            </ul>
+            <p style="text-align:right; line-height:35px;"><a href="node_543799.htm" target="_blank" class="">更多>></a></p>
+        </div>
+
+    <!-- 右边-->
+    <div class="box1" style="width: 320px;height: 260px"  ms-controller="admin_enter">
+        <div class="cyj-enter"><a href="complain.html"> <img src="img/enter.jpg" alt=""/></a> </div>
+        <div class="cyj-enter"><a href="check.html"> <img src="img/check.jpg" alt=""/></a></div>
+
+        <a class="admin_enter" ms-click="enter">管理员入口</a>
+
+    </div>
+</div>
+
+<!--111111111111111111-->
+<!--投诉信息相关展示-->
+<div class="kj">
+    <a href="#"><img src="img/b1.jpg" border="0" width="980px" height="80px"/></a>
+</div>
+<div class="kj">
+    <div class="box1" style="width: 980px; ">
+
+
+        <table id="complaint_list">
+            <tr>
+                <th>投诉对象</th>
+                <th>投诉主题</th>
+                <th>投诉日期</th>
+                <th>投诉人</th>
+            </tr>
+            <tr   ms-controller="complaint_list" ms-repeat="complaint_list">
+                <td>{{el.de_id}}{{el.d_id}}</td>
+                <td>{{el.c_title}}</td>
+                <td>{{el.updatedAt|date("yyyy年MM月dd日 HH:mm:ss")}}</td>
+                <td>{{el.c_name}}</td>
+            </tr>
+            </table>
+    </div>
+</div>
+
+
+<!--222222222222222222222-->
+<!--举报电话、法律法规等-->
+<div class="kj">
+    <a href="#"><img src="img/b2.jpg" border="0" width="980" height="80"/></a>
+</div>
+
+<div class="kj">
+    <div class="box1" style="width: 300px;">
+        <h1><a href="#" target="_blank" class="">更多>></a>工作动态</h1>
+        <div style="margin-bottom:20px;"><img src="img/line.jpg" width="300" height="3"/></div>
+        <ul>
+            <li><a href="#"> 2016年1月投诉情况</a></li>
+            <li><a href="#">2015年12月投诉情况</a></li>
+            <li><a href="#"> 2015年11月投诉情况</a></li>
+            <li><a href="#">2015年10月投诉情况</a></li>
+            <li><a href="#"> 2015年9月投诉情况</a></li>
+        </ul>
+    </div>
+    <div class="box1" style="width:290px; margin:0 20px 0 25px;">
+        <h1><a href="#" target="_blank" class="">更多>></a>法律法规</h1>
+        <div style="margin-bottom:20px;"><img src="img/line.jpg" width="300" height="3"/></div>
+        <ul>
+            <li><a href="#">《医疗机构管理条例》</a></li>
+            <li><a href="#">《中华人民共和国执业医师法》</a></li>
+            <li><a href="#">《医疗事故处理条例》</a></li>
+            <li><a href="#">《中华人民共和国药品管理法》</a></li>
+            <li><a href="#">《中华人民共和国精神卫生法》</a></li>
+        </ul>
+    </div>
+    <div class="box1" style="width: 335px;">
+        <h1><a href="#" target="_blank" class="">更多>></a>相关机构电话</h1>
+        <div style="margin-bottom:20px;"><img src="img/line.jpg" width="300" height="3"/></div>
+        <ul>
+            <li><a href="#">中纪委：12388</a></li>
+            <li><a href="#">公安部：110</a></li>
+            <li><a href="#">打假电话：12315</a></li>
+            <li><a href="#">最高检：12309</a></li>
+            <li><a href="#">文化部：12318</a></li>
+        </ul>
+    </div>
+
+</div>
+
+
+<div id="footer">
+
+        　　<h6>©<a href="http://www.fimmu.com"> 南方医科大学</a>
+                <a href="http://git.oschina.net/terminator404">12计算机 陈勇杰</a>  版权所有
+           </h6>
+</div>
+
+</body>
+
+
+<script type="text/javascript">
+
+    function loadingPage(callback) {
+        return {
+            getPage: function (val) {
+                callback();
+            }
+        }
+    }
+    var pager = loadingPage(function () {
+        $.getJSON('article/article/findAll', function (data) {
+              var   vm = avalon.define({
+                    $id: 'app2',
+                    news_lists: [],
+                    page: 1
+                });
+                avalon.scan();
+                vm.news_lists = data.data.rows.reverse();
+                console.log(data.data);
+        });
+
+        $.getJSON('article/article/findFirst', function (data3) {
+            var   vm = avalon.define({
+                $id: 'app1',
+                first: [],
+                page: 1
+            });
+            avalon.scan();
+            vm.first = data3.data.rows;
+            console.log(data3.data);
+        });
+
+        $.getJSON('complain/complain/findAll', function (data2) {
+            var   vm = avalon.define({
+                $id: 'complaint_list',
+                complaint_list: [],
+                page: 1
+            });
+            avalon.scan();
+            vm.complaint_list =data2.data.rows.reverse();
+            console.log(data2.data);
+        });
+
+    });
+    pager.getPage();
+
+
+    var vm2=avalon.define({
+        $id:'admin_enter',
+        form:{
+            name:'1',
+            password:'111'
+        },
+        enter:function( ) {
+            var tpl = '<input type="text" placeholder="用户名" class="layer"/><br/><input type="text" placeholder="密码" class="pass"/>';
+            layer.open({
+                title: [
+                    '管理员登陆',
+                    'background-color:#3fb239; color:#fff;'
+                ],
+                content: tpl,
+                btn: ['确认', '取消'],
+                shadeClose: false,
+                yes: function () {
+                    var pass = $('.pass').val();
+                    var name = $('.layer').val();
+                    if (vm2.form.password == pass && vm2.form.name == name) {
+                        location.href = "back.html";
+                    } else {
+                        alert("密码错误！");
+                    }
+                    console.log(data)
+                }
+            });
+        }
+    });
+    avalon.scan();
+
+
+</script>
+
+
+
+</html>

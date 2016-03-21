@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>医院举报投诉中心</title>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="js/layer/need/layer.css"/>
+    <script src="js/jquery.1.7.2.min.js"></script>
+    <script src="js/avalon.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/layer/layer.js"></script>
+
+</head>
+<body>
+
+
+<div class="banner"><img src="img/banner.jpg" style="width: 1349px;height: 210px"/></div>
+<div class="nav">
+    <a href="home.html">首页</a>  |
+    <a href="guide.html">投诉指南</a>  |
+    <a href="law.html">法律法规</a>  |
+    <a href="work.html">工作动态</a>  |
+    <a href="introduction.html">机构简介</a>  |
+</div>
+
+<div class="cyj-container">
+    <div ms-controller="complain">
+        <p><input class="cyj-txtBox" type="text" placeholder="投诉主题" ms-duplex="form.c_title"></p>
+
+        <!--<select class="cyj-txtBox" name="keshi" id="keshi"  ms-duplex="form.de_id" >-->
+        <!--<option value ="kq" selected="selected">口腔科</option>-->
+        <!--<option value ="mz">麻醉科</option>-->
+        <!--<option value="zl">肿瘤科</option>-->
+        <!--<option value="mn">泌尿科</option>-->
+        <!--</select>-->
+
+        <div ms-controller="keshi">
+            <select ms-duplex="form.de_id" class="cyj-txtBox">
+                <option ms-repeat-option="options" ms-value="option">{{option}}</option>
+            </select>
+        </div>
+
+        <!--<p><input class="cyj-txtBox" type="text" placeholder="投诉科室" ms-duplex="form.c_"></p>-->
+        <p><input class="cyj-txtBox" type="text" placeholder="投诉医生" ms-duplex="form.d_id"></p>
+        <textarea class="cyj-txtarea" placeholder="投诉内容" ms-duplex="form.c_content"></textarea>
+
+        <p><input class="cyj-txtBox" type="text" placeholder="您的姓名" ms-duplex="form.c_name"></p>
+
+        <!--<select class="cyj-txtBox" placeholder="您的性别" ms-duplex="form.c_sexual">-->
+            <!--<option value="male" selected="selected">男</option>-->
+            <!--<option value="female">女</option>-->
+        <!--</select>-->
+
+        <div ms-controller="sexual">
+            <select ms-duplex="form.c_sexual" class="cyj-txtBox">
+                <option ms-repeat-option="options" ms-value="option">{{option}}</option>
+            </select>
+        </div>
+
+        <p><input class="cyj-txtBox" type="text" placeholder="您的电话" ms-duplex="form.c_phone"></p>
+
+        <p><input class="cyj-txtBox" type="text" placeholder="您的邮箱" ms-duplex="form.c_mail"></p>
+
+        <p>
+            <button type="submit" class="cyj-btn" ms-click="ok">提交</button>
+        </p>
+    </div>
+</div>
+
+
+<div></div>
+
+
+<div id="footer">
+
+    　　<h6>©<a href="http://www.fimmu.com"> 南方医科大学</a>
+    <a href="http://git.oschina.net/terminator404">12计算机 陈勇杰</a> 版权所有
+</h6>
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+
+    var vm1 = avalon.define({
+        $id: "keshi",
+        options: ["麻醉科", "肿瘤科", "泌尿科","妇产科","口腔科","肝胆外科","神经外科","肾内科","药剂科"],
+        selected: "麻醉科"
+    });
+
+    var vm2 = avalon.define({
+        $id: "sexual",
+        options: ["男", "女"],
+        selected: "男"
+    });
+
+    var vm = avalon.define({
+        $id: "complain",
+        form: {
+            c_title: '',
+            de_id: '',
+            d_id: '',
+            c_content: '',
+            c_name: '',
+            c_sexual: '',
+            c_phone: '',
+            c_mail: '',
+            c_condition: '1', /*1.已提交；2.审核中；3.已通过；4.已解决*/
+            c_query: ''
+        },
+        ok: function () {
+            vm.form.c_query = md5('' + vm.form.c_name + vm.form.c_phone + vm.form.c_mail + vm.form.c_sexual + vm.form.createdAt);
+
+            $.post('complain/complain/add', vm.form, function (data) {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    layer.open({
+                        title:'提交成功!',
+                        content: '请记下您的查询码：'+ vm.form.c_query
+                    });
+                }
+            });
+        }
+    });
+    avalon.scan();
+
+
+</script>
+
+
+</html>
